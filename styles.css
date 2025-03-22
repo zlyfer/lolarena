@@ -1,0 +1,388 @@
+:root {
+  --bg-color: #f0f0f0;
+  --card-bg: #ffffff;
+  --text-color: #333;
+  --border-color: #ddd;
+  --button-bg: #f4f4f4;
+  --button-hover: #e0e0e0;
+  --primary-color: #0a7cff;
+}
+
+[data-theme="dark"] {
+  --bg-color: #222;
+  --card-bg: #333;
+  --text-color: #eee;
+  --border-color: #444;
+  --button-bg: #444;
+  --button-hover: #555;
+  --primary-color: #1a8cff;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body:has(.login-container) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0;
+}
+
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--card-bg);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.champ-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.champ-card {
+  height: 250px;
+  background-color: rgb(222, 222, 222);
+  border-radius: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+  background-size: calc(100% + 30px);
+  background-position: top -15px left -15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.champ-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.champ-card .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  transition: background-color 0.2s;
+}
+
+.champ-card.owned .overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 60px;
+  color: #d4af37;
+  /* Golden color */
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 3;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.champ-card.owned .checkmark {
+  opacity: 1;
+}
+
+/* Loading state styles */
+.champ-card.loading .overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  opacity: 0;
+  z-index: 3;
+  animation: spin 1s ease-in-out infinite;
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.champ-card.loading .loading-spinner {
+  opacity: 1;
+  display: block;
+}
+
+.champ-card.loading .checkmark {
+  opacity: 0;
+}
+
+.champ-card .champ-name {
+  position: relative;
+  z-index: 2;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="password"],
+button {
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #0a7cff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  margin-bottom: 10px;
+}
+
+/* Search and filter styles */
+.search-filter {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.right-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.search-container {
+  width: 300px;
+  position: relative;
+  display: flex;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 16px;
+  height: 42px;
+  box-sizing: border-box;
+  padding-right: 35px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 5px);
+  transform: translateY(-50%);
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 5px 5px 7px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #666;
+}
+
+.filter-buttons {
+  display: flex;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 42px;
+}
+
+.filter-button {
+  padding: 10px 20px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  cursor: pointer;
+  margin: 0;
+  width: auto;
+  height: 42px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-button.active {
+  background-color: #0a7cff;
+  color: white;
+  border-color: #0a7cff;
+}
+
+.filter-button:not(:last-child) {
+  border-right: none;
+}
+
+.group-toggle-btn,
+.username-btn {
+  padding: 10px 20px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  cursor: pointer;
+  margin: 0;
+  width: 200px;
+  height: 42px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.username-btn {
+  font-weight: bold;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.username-text {
+  font-weight: bold;
+}
+
+.count-info {
+  font-weight: normal;
+}
+
+.group-toggle-btn.active {
+  background-color: #0a7cff;
+  color: white;
+  border-color: #0a7cff;
+}
+
+.group-heading {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 30px 0 15px 0;
+  display: none;
+}
+
+/* Hide champions that don't match filter */
+.champ-card.filtered {
+  display: none;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.champ-counter {
+  font-size: 16px;
+  color: #333;
+  padding: 10px 15px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.logout-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  font-size: 16px;
+  height: 42px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: var(--button-hover);
+}
+
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  font-size: 16px;
+  height: 42px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--button-hover);
+}
+
+#champion-grid-container {
+  width: 100%;
+  max-width: 100%;
+  padding: min(30px, 6vw);
+}
