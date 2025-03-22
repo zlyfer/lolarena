@@ -27,14 +27,6 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
-body:has(.login-container) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 0;
-}
-
 .login-container {
   max-width: 400px;
   margin: 0 auto;
