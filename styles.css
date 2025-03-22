@@ -25,6 +25,8 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .login-container {
@@ -256,38 +258,48 @@ button {
 }
 
 .filter-button.active {
-  background-color: #0a7cff;
+  background-color: var(--primary-color);
   color: white;
-  border-color: #0a7cff;
+  border-color: var(--primary-color);
 }
 
 .filter-button:not(:last-child) {
   border-right: none;
 }
 
-.group-toggle-btn,
-.username-btn {
+.username-btn,
+.logout-btn,
+.theme-toggle-btn {
   padding: 10px 20px;
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   color: var(--text-color);
-  cursor: pointer;
-  margin: 0;
-  width: 200px;
+  border-radius: 4px;
+  font-size: 16px;
   height: 42px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  transition: background-color 0.2s;
 }
 
 .username-btn {
+  width: 200px;
+  margin: 0;
   font-weight: bold;
   cursor: default;
-  display: flex;
-  align-items: center;
   gap: 15px;
+}
+
+.logout-btn,
+.theme-toggle-btn {
+  cursor: pointer;
+}
+
+.logout-btn:hover,
+.theme-toggle-btn:hover {
+  background-color: var(--button-hover);
 }
 
 .username-text {
@@ -298,83 +310,13 @@ button {
   font-weight: normal;
 }
 
-.group-toggle-btn.active {
-  background-color: #0a7cff;
-  color: white;
-  border-color: #0a7cff;
-}
-
-.group-heading {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 30px 0 15px 0;
-  display: none;
-}
-
-/* Hide champions that don't match filter */
 .champ-card.filtered {
   display: none;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.champ-counter {
-  font-size: 16px;
-  color: #333;
-  padding: 10px 15px;
-  background-color: #f0f0f0;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-}
-
-.logout-btn {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: var(--button-bg);
-  color: var(--text-color);
-  text-decoration: none;
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
-  font-size: 16px;
-  height: 42px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s;
-  cursor: pointer;
-}
-
-.logout-btn:hover {
-  background-color: var(--button-hover);
-}
-
-.theme-toggle-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 15px;
-  background-color: var(--button-bg);
-  color: var(--text-color);
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
-  font-size: 16px;
-  height: 42px;
-  box-sizing: border-box;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.theme-toggle-btn:hover {
-  background-color: var(--button-hover);
 }
 
 #champion-grid-container {
   width: 100%;
   max-width: 100%;
   padding: min(30px, 6vw);
+  box-sizing: border-box;
 }

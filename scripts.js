@@ -15,15 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchBar = document.querySelector(".search-bar");
   const clearSearchBtn = document.querySelector(".clear-search-btn");
   const filterButtons = document.querySelectorAll(".filter-button");
-  const checkedGrid = document.getElementById("checked-grid");
-  const uncheckedGrid = document.getElementById("unchecked-grid");
-  const checkedHeading = document.getElementById("checked-heading");
-  const uncheckedHeading = document.getElementById("unchecked-heading");
   const themeToggleBtn = document.getElementById("theme-toggle");
 
   // Theme variables
   const THEMES = ["auto", "light", "dark"];
   let currentThemeIndex = 0;
+  let currentFilter = "all";
 
   // Init - check if user is logged in from localStorage
   initializeApp();
@@ -48,7 +45,19 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Login with click event
-  document.getElementById("login-button").addEventListener("click", function () {
+  document.getElementById("login-button").addEventListener("click", handleLogin);
+
+  // Add keyboard event listeners for Enter key on login inputs
+  document.getElementById("username").addEventListener("keyup", function (event) {
+    if (event.key === "Enter") handleLogin();
+  });
+
+  document.getElementById("password").addEventListener("keyup", function (event) {
+    if (event.key === "Enter") handleLogin();
+  });
+
+  // Handle login process
+  function handleLogin() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
@@ -64,10 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
+      body: JSON.stringify({ username, password }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -90,20 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
         loginError.textContent = "An error occurred. Please try again.";
         loginError.style.display = "block";
       });
-  });
-
-  // Add keyboard event listeners for Enter key on login inputs
-  document.getElementById("username").addEventListener("keyup", function (event) {
-    if (event.key === "Enter") {
-      document.getElementById("login-button").click();
-    }
-  });
-
-  document.getElementById("password").addEventListener("keyup", function (event) {
-    if (event.key === "Enter") {
-      document.getElementById("login-button").click();
-    }
-  });
+  }
 
   // Logout button
   logoutBtn.addEventListener("click", function () {
@@ -141,28 +134,8 @@ document.addEventListener("DOMContentLoaded", function () {
     champList.forEach((champ) => {
       const isOwned = currentUser.champs.includes(champ);
 
-      // Special case handling for specific champions
-      let bgChampName = champ;
-      if (champ === "Wukong") {
-        bgChampName = "MonkeyKing";
-      } else if (champ === "Renata Glasc") {
-        bgChampName = "Renata";
-      } else if (champ === "K'Sante") {
-        bgChampName = "KSante";
-      } else if (champ === "Kog'Maw") {
-        bgChampName = "KogMaw";
-      } else if (champ === "Rek'Sai") {
-        bgChampName = "RekSai";
-      } else if (champ === "LeBlanc") {
-        bgChampName = "Leblanc";
-      }
-
       // Process champion name for URL
-      // 1. Replace apostrophes and make the next letter lowercase
-      bgChampName = bgChampName.replace(/\'([A-Z])/g, (match, p1) => p1.toLowerCase());
-
-      // 2. Remove any remaining spaces and periods
-      bgChampName = bgChampName.replace(/[ .]/g, "");
+      let bgChampName = processChampionName(champ);
 
       const card = document.createElement("div");
       card.className = `champ-card ${isOwned ? "owned" : ""}`;
@@ -170,11 +143,11 @@ document.addEventListener("DOMContentLoaded", function () {
       card.style.backgroundImage = `url('http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${bgChampName}_0.jpg')`;
 
       card.innerHTML = `
-            <div class="overlay"></div>
-            <div class="checkmark">✓</div>
-            <div class="loading-spinner"></div>
-            <div class="champ-name">${champ}</div>
-            `;
+        <div class="overlay"></div>
+        <div class="checkmark">✓</div>
+        <div class="loading-spinner"></div>
+        <div class="champ-name">${champ}</div>
+      `;
 
       card.addEventListener("click", function () {
         toggleChampion(card, champ);
@@ -189,6 +162,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Apply initial filters
     applyFilters();
+  }
+
+  // Process champion name for URL
+  function processChampionName(champ) {
+    // Special case handling for specific champions
+    let bgChampName = champ;
+    if (champ === "Wukong") bgChampName = "MonkeyKing";
+    else if (champ === "Renata Glasc") bgChampName = "Renata";
+    else if (champ === "K'Sante") bgChampName = "KSante";
+    else if (champ === "Kog'Maw") bgChampName = "KogMaw";
+    else if (champ === "Rek'Sai") bgChampName = "RekSai";
+    else if (champ === "LeBlanc") bgChampName = "Leblanc";
+
+    // 1. Replace apostrophes and make the next letter lowercase
+    bgChampName = bgChampName.replace(/\'([A-Z])/g, (match, p1) => p1.toLowerCase());
+
+    // 2. Remove any remaining spaces and periods
+    return bgChampName.replace(/[ .]/g, "");
   }
 
   // Toggle champion ownership
@@ -267,10 +258,6 @@ document.addEventListener("DOMContentLoaded", function () {
     championGridContainer.style.display = "block";
   }
 
-  // Search and filter functionality
-  let currentFilter = "all";
-  let isGrouped = false;
-
   // Filter buttons click handler
   filterButtons.forEach((button) => {
     button.addEventListener("click", function () {
@@ -287,9 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Search input handler
-  searchBar.addEventListener("input", function () {
-    applyFilters();
-  });
+  searchBar.addEventListener("input", applyFilters);
 
   // Clear search button handler
   clearSearchBtn.addEventListener("click", function () {
@@ -305,26 +290,17 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".champ-card").forEach((card) => {
       const champName = card.dataset.champ.toLowerCase();
       const isOwned = card.classList.contains("owned");
-      let showBasedOnFilter = false;
 
-      // Determine visibility based on filter type
-      if (
+      // Determine visibility based on filter and search
+      const showBasedOnFilter =
         currentFilter === "all" ||
         (currentFilter === "owned" && isOwned) ||
-        (currentFilter === "unowned" && !isOwned)
-      ) {
-        showBasedOnFilter = true;
-      }
+        (currentFilter === "unowned" && !isOwned);
 
-      // Determine visibility based on search term
       const matchesSearch = champName.includes(searchTerm);
 
       // Apply combined filter
-      if (showBasedOnFilter && matchesSearch) {
-        card.classList.remove("filtered");
-      } else {
-        card.classList.add("filtered");
-      }
+      card.classList.toggle("filtered", !(showBasedOnFilter && matchesSearch));
     });
   }
 
@@ -341,11 +317,9 @@ document.addEventListener("DOMContentLoaded", function () {
   function applyTheme(theme) {
     if (theme === "auto") {
       // Use system preference
-      if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        document.documentElement.setAttribute("data-theme", "dark");
-      } else {
-        document.documentElement.setAttribute("data-theme", "light");
-      }
+      const prefersDark =
+        window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.setAttribute("data-theme", prefersDark ? "dark" : "light");
 
       // Listen for system theme changes
       window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
