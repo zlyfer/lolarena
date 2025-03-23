@@ -19,7 +19,7 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 20px;
   background-color: var(--bg-color);
@@ -284,6 +284,26 @@ button {
   transition: background-color 0.2s;
 }
 
+.github-btn {
+  width: 42px;
+  height: 42px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  text-decoration: none;
+  padding: 0;
+  min-width: 42px;
+  max-width: 42px;
+  min-height: 42px;
+  max-height: 42px;
+}
+
 .username-btn {
   width: 200px;
   margin: 0;
@@ -293,13 +313,19 @@ button {
 }
 
 .logout-btn,
-.theme-toggle-btn {
+.theme-toggle-btn,
+.github-btn {
   cursor: pointer;
 }
 
 .logout-btn:hover,
-.theme-toggle-btn:hover {
+.theme-toggle-btn:hover,
+.github-btn:hover {
   background-color: var(--button-hover);
+}
+
+.github-btn:visited {
+  color: var(--text-color);
 }
 
 .username-text {
@@ -319,4 +345,35 @@ button {
   max-width: 100%;
   padding: min(30px, 6vw);
   box-sizing: border-box;
+}
+
+/* Footer styling */
+.footer {
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 30px;
+  font-size: 14px;
+  color: var(--text-color);
+  position: relative;
+}
+
+.footer-content {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.heart {
+  color: #ff5555;
+  display: inline-block;
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
 }
