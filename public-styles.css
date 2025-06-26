@@ -1,0 +1,214 @@
+/* Public Profile Styles - Stream Overlay */
+.public-profile-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 20px;
+    background: transparent;
+}
+
+.profile-card {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.profile-header {
+    text-align: left;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.username-display {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.profile-stats {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.champion-count {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ccc;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px 12px;
+    border-radius: 15px;
+}
+
+/* Progress Bar */
+.progress-container {
+    margin: 15px 0 25px 0;
+    position: relative;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #45a049);
+    border-radius: 25px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    position: absolute;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.9rem;
+    color: white;
+    font-weight: 600;
+    z-index: 2;
+}
+
+/* Champion Grid for Stream Overlay */
+.champion-grid {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.champion-grid .champ-card {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    position: relative;
+    cursor: default;
+    transition: transform 0.2s ease;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+.champion-grid .champ-card:hover {
+    transform: scale(1.05);
+}
+
+.champion-grid .champ-card.owned {
+    border: 2px solid #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+.champion-grid .champ-card .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: background-color 0.2s;
+}
+
+.champion-grid .champ-card.owned .overlay {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.champion-grid .champ-card .checkmark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: #4CAF50;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 3;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.champion-grid .champ-card.owned .checkmark {
+    opacity: 1;
+}
+
+.champion-grid .champ-card .champ-name {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    right: 2px;
+    font-size: 8px;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    line-height: 1.2;
+    z-index: 2;
+}
+
+/* Loading State */
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #ccc;
+}
+
+.loading::after {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #666;
+    border-radius: 50%;
+    border-top-color: #4CAF50;
+    animation: spin 1s ease-in-out infinite;
+    margin-left: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Error State */
+.error-message {
+    text-align: center;
+    padding: 20px;
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+    border-radius: 8px;
+    margin: 10px 0;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .public-profile-container {
+        padding: 10px;
+    }
+
+    .profile-card {
+        padding: 15px;
+    }
+
+    .username-display {
+        font-size: 1.3rem;
+    }
+
+    .champion-grid .champ-card {
+        width: 50px;
+        height: 50px;
+    }
+
+    .champion-grid .champ-card .champ-name {
+        font-size: 7px;
+    }
+}

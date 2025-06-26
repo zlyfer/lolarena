@@ -311,6 +311,38 @@ button {
   transition: background-color 0.2s;
 }
 
+.public-toggle-btn {
+  padding: 10px 20px;
+  background-color: #21c13399;
+  border: 1px solid #21c133dd;
+  color: white;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 42px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100px;
+}
+
+.public-toggle-btn.private {
+  background-color: #ff0a0a99;
+  border-color: #ff0a0add;
+}
+
+.public-toggle-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.public-toggle-btn:active {
+  transform: translateY(0);
+}
+
 .github-btn {
   width: 42px;
   height: 42px;

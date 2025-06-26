@@ -16,6 +16,7 @@ $(document).ready(function () {
   const $clearSearchBtn = $(".clear-search-btn");
   const $filterButtons = $(".filter-button");
   const $themeToggleBtn = $("#theme-toggle");
+  const $publicToggleBtn = $("#public-toggle-btn");
 
   // Theme variables
   const THEMES = ["auto", "light", "dark"];
@@ -41,6 +42,8 @@ $(document).ready(function () {
       try {
         currentUser = JSON.parse(savedUser);
         fetchChampions();
+        // Initialize public toggle button
+        updatePublicToggleButton();
       } catch (e) {
         console.error("Error parsing saved user", e);
         showLoginForm();
@@ -92,6 +95,8 @@ $(document).ready(function () {
           currentUser = data.user;
           localStorage.setItem("lolArenaUser", JSON.stringify(currentUser));
           fetchChampions();
+          // Initialize public toggle button
+          updatePublicToggleButton();
         } else {
           $loginError.text(data.message || "Login failed").show();
         }
@@ -314,6 +319,63 @@ $(document).ready(function () {
     applyTheme(newTheme);
     updateThemeButtonText();
   });
+
+  // Public/Private toggle functionality
+  $publicToggleBtn.on("click", function () {
+    const isCurrentlyPublic = currentUser.public;
+    const newPublicState = !isCurrentlyPublic;
+
+    // Show loading state
+    $publicToggleBtn.prop("disabled", true);
+    const originalText = $publicToggleBtn.find(".toggle-text").text();
+    $publicToggleBtn.find(".toggle-text").text("...");
+
+    $.ajax({
+      url: `${API_BASE_URL}/set-public-state`,
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({
+        userId: currentUser.id,
+        public: newPublicState
+      }),
+      success: function (data) {
+        if (data.success) {
+          // Update currentUser with new public state
+          currentUser.public = data.public;
+          localStorage.setItem("lolArenaUser", JSON.stringify(currentUser));
+
+          // Update button appearance
+          updatePublicToggleButton();
+        } else {
+          console.error("Error setting public state:", data.message);
+          alert("Error: " + (data.message || "Failed to update public state"));
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error:", error);
+        alert("Request failed. Please check your connection.");
+      },
+      complete: function () {
+        // Restore button state
+        $publicToggleBtn.prop("disabled", false);
+        $publicToggleBtn.find(".toggle-text").text(originalText);
+      }
+    });
+  });
+
+  // Update public toggle button appearance
+  async function updatePublicToggleButton() {
+    const isPublic = currentUser.public;
+    const $toggleText = await $publicToggleBtn.find(".toggle-text");
+
+    if (isPublic) {
+      $publicToggleBtn.removeClass("private");
+      $toggleText.text("Public");
+    } else {
+      $publicToggleBtn.addClass("private");
+      $toggleText.text("Private");
+    }
+  }
 
   // Apply theme to document
   function applyTheme(theme) {
