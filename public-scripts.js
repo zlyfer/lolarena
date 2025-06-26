@@ -20,6 +20,11 @@ $(document).ready(function () {
 
     // Set up auto-refresh every minute
     startAutoRefresh();
+
+    // Add click handler for profile card toggle
+    $('.profile-card').on('click', function() {
+        $(this).toggleClass('highlighted');
+    });
 });
 
 function startAutoRefresh() {
