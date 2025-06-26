@@ -1,27 +1,33 @@
 :root {
   --bg-color: #f0f0f0;
+  --bg-color2: #f0f0f0dd;
   --card-bg: #ffffff;
   --text-color: #333;
   --border-color: #ddd;
-  --button-bg: #f4f4f4;
-  --button-hover: #e0e0e0;
-  --primary-color: #0a7cff;
+  --button-bg: #f4f4f499;
+  --button-hover: #e0e0e099;
+  --primary-color: #0a7cff99;
+  --clear-search-btn: rgba(0, 0, 0, 0.08);
+  --clear-search-btn-hover: rgba(0, 0, 0, 0.13);
 }
 
 [data-theme="dark"] {
   --bg-color: #222;
+  --bg-color2: #222d;
   --card-bg: #333;
   --text-color: #eee;
   --border-color: #444;
-  --button-bg: #444;
-  --button-hover: #555;
-  --primary-color: #1a8cff;
+  --button-bg: #4449;
+  --button-hover: #5559;
+  --primary-color: #1a8cff99;
+  --clear-search-btn: rgba(0, 0, 0, 0.1);
+  --clear-search-btn-hover: rgba(0, 0, 0, 0.13);
 }
 
 body {
   font-family: "Roboto", sans-serif;
   margin: 0;
-  padding: 20px;
+  /* padding: 20px; */
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
@@ -31,10 +37,10 @@ body {
 
 .login-container {
   max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
+  margin: 10% auto 0 auto;
+  padding: 20px 30px;
   background-color: var(--card-bg);
-  border-radius: 5px;
+  border-radius: 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -177,12 +183,24 @@ button {
 
 /* Search and filter styles */
 .search-filter {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--bg-color2);
+  padding: 15px 50px;
   margin-bottom: 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.search-filter.scrolled {
+  box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
 }
 
 .left-controls {
@@ -212,7 +230,11 @@ button {
   height: 42px;
   box-sizing: border-box;
   padding-right: 35px;
-  background-color: var(--card-bg);
+  background-color: var(--button-bg);
+  color: var(--text-color);
+}
+
+.search-bar::placeholder {
   color: var(--text-color);
 }
 
@@ -231,8 +253,12 @@ button {
   width: 20px;
   height: 20px;
   border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--clear-search-btn);
   color: #666;
+}
+
+.clear-search-btn:hover {
+  background-color: var(--clear-search-btn-hover);
 }
 
 .filter-buttons {
@@ -244,7 +270,7 @@ button {
 
 .filter-button {
   padding: 10px 20px;
-  background-color: var(--card-bg);
+  background-color: var(--button-bg);
   border: 1px solid var(--border-color);
   color: var(--text-color);
   cursor: pointer;
@@ -257,6 +283,7 @@ button {
   justify-content: center;
 }
 
+.filter-button.active:hover,
 .filter-button.active {
   background-color: var(--primary-color);
   color: white;
@@ -271,7 +298,7 @@ button {
 .logout-btn,
 .theme-toggle-btn {
   padding: 10px 20px;
-  background-color: var(--card-bg);
+  background-color: var(--button-bg);
   border: 1px solid var(--border-color);
   color: var(--text-color);
   border-radius: 4px;
@@ -287,7 +314,7 @@ button {
 .github-btn {
   width: 42px;
   height: 42px;
-  background-color: var(--card-bg);
+  background-color: var(--button-bg);
   border: 1px solid var(--border-color);
   color: var(--text-color);
   border-radius: 4px;
@@ -318,6 +345,10 @@ button {
   cursor: pointer;
 }
 
+.username-btn:hover,
+.filter-button:hover,
+.search-bar:hover,
+.search-bar:focus,
 .logout-btn:hover,
 .theme-toggle-btn:hover,
 .github-btn:hover {
@@ -350,11 +381,27 @@ button {
 /* Footer styling */
 .footer {
   text-align: center;
-  padding: 20px 0;
   margin-top: 30px;
   font-size: 14px;
   color: var(--text-color);
+  position: sticky;
+  bottom: 0px;
+  background: var(--bg-color2);
+  width: 180px;
+  left: calc(50% - 90px);
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  z-index: 1000;
+  padding: 10px 0 5px 0;
+  backdrop-filter: blur(20px);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.footer.bottom-only {
   position: relative;
+  left: calc(50% - 90px);
 }
 
 .footer-content {
@@ -362,10 +409,20 @@ button {
   margin: 0 auto;
 }
 
+.footer-link {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.footer-link:hover {
+  opacity: 0.8;
+}
+
 .heart {
-  color: #ff5555;
+  color: #e57a9b;
   display: inline-block;
-  animation: heartbeat 1.5s infinite;
+  animation: heartbeat 3s infinite;
 }
 
 @keyframes heartbeat {
@@ -374,6 +431,6 @@ button {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(0.9);
   }
 }
