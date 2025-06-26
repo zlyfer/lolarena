@@ -17,6 +17,7 @@ $(document).ready(function () {
   const $filterButtons = $(".filter-button");
   const $themeToggleBtn = $("#theme-toggle");
   const $publicToggleBtn = $("#public-toggle-btn");
+  const $publicProfileBtn = $("#public-profile-btn");
 
   // Theme variables
   const THEMES = ["auto", "light", "dark"];
@@ -36,6 +37,9 @@ $(document).ready(function () {
   initializeApp();
 
   function initializeApp() {
+    // Hide public profile button by default
+    $publicProfileBtn.hide();
+
     // Load user from localStorage if available
     const savedUser = localStorage.getItem("lolArenaUser");
     if (savedUser) {
@@ -363,6 +367,14 @@ $(document).ready(function () {
     });
   });
 
+  // Public profile button functionality
+  $publicProfileBtn.on("click", function () {
+    if (currentUser && currentUser.username) {
+      const publicProfileUrl = `${window.location.origin}/public.html?username=${encodeURIComponent(currentUser.username)}`;
+      window.open(publicProfileUrl, '_blank');
+    }
+  });
+
   // Update public toggle button appearance
   async function updatePublicToggleButton() {
     const isPublic = currentUser.public;
@@ -371,9 +383,11 @@ $(document).ready(function () {
     if (isPublic) {
       $publicToggleBtn.removeClass("private");
       $toggleText.text("Public");
+      $publicProfileBtn.show();
     } else {
       $publicToggleBtn.addClass("private");
       $toggleText.text("Private");
+      $publicProfileBtn.hide();
     }
   }
 

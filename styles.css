@@ -316,31 +316,67 @@ button {
   background-color: #21c13399;
   border: 1px solid #21c133dd;
   color: white;
-  border-radius: 4px;
+  border-radius: 4px 0 0 4px;
   font-size: 16px;
   height: 42px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: background-color 0.2s;
   cursor: pointer;
   font-weight: bold;
   width: 100px;
+  margin: 0;
 }
 
 .public-toggle-btn.private {
   background-color: #ff0a0a99;
   border-color: #ff0a0add;
+  border-radius: 4px;
+}
+
+.public-profile-btn {
+  padding: 10px;
+  background-color: #21c13399;
+  border: 1px solid #21c133dd;
+  border-left: none;
+  color: white;
+  border-radius: 0 4px 4px 0;
+  font-size: 16px;
+  height: 42px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  width: 42px;
+  min-width: 42px;
+  max-width: 42px;
+  margin: 0;
+  margin-left: -10px;
+}
+
+.public-toggle-btn.private + .public-profile-btn {
+  background-color: #ff0a0a99;
+  border-color: #ff0a0add;
 }
 
 .public-toggle-btn:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+  background-color: #21c133cc;
 }
 
-.public-toggle-btn:active {
-  transform: translateY(0);
+.public-toggle-btn.private:hover {
+  background-color: #ff0a0acc;
+}
+
+.public-profile-btn:hover {
+  background-color: #21c133cc;
+}
+
+.public-toggle-btn.private + .public-profile-btn:hover {
+  background-color: #ff0a0acc;
 }
 
 .github-btn {
