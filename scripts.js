@@ -10,6 +10,7 @@ $(document).ready(function () {
   const $searchFilter = $(".search-filter");
   const $usernameDisplay = $("#username-display");
   const $countInfo = $("#count-info");
+  const $usernameProgressBar = $("#username-progress-bar");
   const $mainGrid = $("#main-grid");
   const $logoutBtn = $("#logout-btn");
   const $searchBar = $(".search-bar");
@@ -173,9 +174,10 @@ $(document).ready(function () {
     // Update user display
     $usernameDisplay.text(currentUser.username);
     $countInfo.text(`${currentUser.champs.length}/${champList.length}`);
+    updateProgressBar();
 
-    // Apply initial filters
     applyFilters();
+    updateProgressBar();
   }
 
   // Process champion name for URL
@@ -230,6 +232,7 @@ $(document).ready(function () {
 
           // Update counter
           $countInfo.text(`${currentUser.champs.length}/${champList.length}`);
+          updateProgressBar();
 
           // Re-apply current filter after state change
           applyFilters();
@@ -461,4 +464,14 @@ $(document).ready(function () {
 
   // Initialize footer preference
   loadFooterPreference();
+
+  // Update progress bar
+  function updateProgressBar() {
+    if (currentUser && champList.length > 0) {
+      const progress = (currentUser.champs.length / champList.length) * 100;
+      $usernameProgressBar.css('width', `${progress}%`);
+    } else {
+      $usernameProgressBar.css('width', '0%');
+    }
+  }
 });

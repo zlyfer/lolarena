@@ -55,7 +55,6 @@ body {
   height: 250px;
   background-color: rgb(222, 222, 222);
   border-radius: 15px;
-  border: 2px solid rgba(0, 0, 0, 0.1);
   padding: 15px;
   text-align: center;
   cursor: pointer;
@@ -106,6 +105,7 @@ body {
   transition: opacity 0.2s;
   z-index: 3;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  user-select: none;
 }
 
 .champ-card.owned .checkmark {
@@ -131,6 +131,7 @@ body {
   z-index: 3;
   animation: spin 1s ease-in-out infinite;
   display: none;
+  user-select: none;
 }
 
 @keyframes spin {
@@ -151,6 +152,7 @@ body {
 .champ-card .champ-name {
   position: relative;
   z-index: 2;
+  user-select: none;
 }
 
 .header {
@@ -405,6 +407,29 @@ button {
   font-weight: bold;
   cursor: default;
   gap: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.username-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #21c133;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.username-btn-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  height: 100%;
 }
 
 .logout-btn,
