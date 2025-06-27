@@ -51,7 +51,6 @@ function stopAutoRefresh() {
 
 function initializePublicProfile(username) {
     // Show loading state
-    $('.username-display').text('Loading...');
     $('.progress-fill').css('width', '0%');
     $('.progress-text').text('0/0');
     $('#public-champion-grid').html('<div class="loading">Loading champion collection...</div>');
@@ -86,9 +85,6 @@ function fetchPublicProfile(username) {
 }
 
 function renderPublicProfile(user) {
-    // Update header
-    $('.username-display').text(user.username);
-
     // First fetch the champion list to get total count
     $.ajax({
         url: `${API_BASE_URL}/champions`,
@@ -169,7 +165,6 @@ function processChampionName(champ) {
 }
 
 function showError(message) {
-    $('.username-display').text('Error');
     $('.progress-fill').css('width', '0%');
     $('.progress-text').text('0/0');
     $('#public-champion-grid').html(`<div class="error-message">${message}</div>`);

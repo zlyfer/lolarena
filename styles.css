@@ -472,11 +472,6 @@ button {
   color: white;
 }
 
-.footer.red {
-  background: #ff0000;
-  color: white;
-}
-
 .footer.bottom-only {
   position: relative;
   left: calc(50% - 90px);

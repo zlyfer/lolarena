@@ -1,76 +1,31 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: transparent;
+}
+
 /* Public Profile Styles - Stream Overlay */
-.public-profile-container {
-    min-height: 100vh;
-    display: flex;
+.public-profile {
+    flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     padding: 20px;
     background: transparent;
-}
-
-.profile-card {
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    max-width: 400px;
-    width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.profile-card.highlighted {
-    background: #ff0000;
-    border-radius: 0;
-    color: black;
-}
-
-.profile-header {
-    text-align: left;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.username-display {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: white;
-    margin: 0;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.profile-stats {
     display: inline-block;
-    margin-left: 15px;
-}
-
-.champion-count {
-    font-size: 1rem;
-    font-weight: 500;
-    color: #ccc;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 5px 12px;
-    border-radius: 15px;
-}
-
-/* Progress Bar */
-.progress-container {
-    margin: 15px 0 25px 0;
-    position: relative;
+    width: auto;
+    max-width: 380px;
 }
 
 .progress-bar {
-    width: 100%;
+    width: 332px;
     height: 20px;
-    /* background: rgba(255, 255, 255, 0.2); */
     background: #595959;
     border-radius: 25px;
     overflow: hidden;
     position: relative;
+    margin-bottom: 10px;
+
 }
 
 .progress-fill {
@@ -108,10 +63,6 @@
     transition: transform 0.2s ease;
     border: 2px solid rgba(255, 255, 255, 0.2);
     overflow: hidden;
-}
-
-.champion-grid .champ-card:hover {
-    transform: scale(1.05);
 }
 
 .champion-grid .champ-card.owned {
@@ -200,16 +151,8 @@
 
 /* Responsive Design */
 @media (max-width: 480px) {
-    .public-profile-container {
+    .public-profile {
         padding: 10px;
-    }
-
-    .profile-card {
-        padding: 15px;
-    }
-
-    .username-display {
-        font-size: 1.3rem;
     }
 
     .champion-grid .champ-card {
