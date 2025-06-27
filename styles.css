@@ -467,9 +467,24 @@ button {
   transition: all 0.3s ease;
 }
 
+.footer:hover {
+  background: #d30f0f;
+  color: white;
+}
+
+.footer.red {
+  background: #ff0000;
+  color: white;
+}
+
 .footer.bottom-only {
   position: relative;
   left: calc(50% - 90px);
+}
+
+.footer.bottom-only:hover {
+  background: #21a130;
+  color: white;
 }
 
 .footer-content {
