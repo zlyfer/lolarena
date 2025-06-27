@@ -39,7 +39,7 @@ function startAutoRefresh() {
             console.log('Auto-refreshing profile data...');
             fetchPublicProfile(currentUsername);
         }
-    }, 1000); // 60 seconds = 1 minute
+    }, 60000); // 60 seconds = 1 minute
 }
 
 function stopAutoRefresh() {
