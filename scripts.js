@@ -429,42 +429,6 @@ $(document).ready(function () {
     updateThemeButtonText();
   }
 
-  // Footer click functionality
-  $(".footer").on("click", function(e) {
-    // Don't toggle if clicking on the zlyfer link
-    if ($(e.target).hasClass("footer-link") || $(e.target).closest(".footer-link").length > 0) {
-      return;
-    }
-
-    const $footer = $(this);
-    const isSticky = !$footer.hasClass("bottom-only");
-
-    if (isSticky) {
-      $footer.addClass("bottom-only");
-      // Save preference as cookie (expires in 1 year)
-      document.cookie = "footerSticky=false; max-age=31536000; path=/";
-    } else {
-      $footer.removeClass("bottom-only");
-      // Save preference as cookie (expires in 1 year)
-      document.cookie = "footerSticky=true; max-age=31536000; path=/";
-    }
-  });
-
-  // Load footer preference from cookie on page load
-  function loadFooterPreference() {
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
-      const [name, value] = cookie.trim().split('=');
-      if (name === 'footerSticky' && value === 'false') {
-        $(".footer").addClass("bottom-only");
-        break;
-      }
-    }
-  }
-
-  // Initialize footer preference
-  loadFooterPreference();
-
   // Update progress bar
   function updateProgressBar() {
     if (currentUser && champList.length > 0) {

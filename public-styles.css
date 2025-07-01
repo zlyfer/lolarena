@@ -65,6 +65,11 @@ html, body {
     overflow: hidden;
 }
 
+.champion-grid .champ-card:hover {
+    transform: none;
+    box-shadow: none;
+}
+
 .champion-grid .champ-card.owned {
     border: 2px solid #4CAF50;
     box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);

@@ -1,6 +1,7 @@
 :root {
   --bg-color: #f0f0f0;
   --bg-color2: #f0f0f0dd;
+  --bg-color3: #eeea;
   --card-bg: #ffffff;
   --text-color: #333;
   --border-color: #ddd;
@@ -416,8 +417,8 @@ button {
   top: 0;
   left: 0;
   height: 100%;
-  background-color: #21c133;
-  opacity: 0.3;
+  background-color: #4aca59;
+  opacity: 0.75;
   z-index: 0;
 }
 
@@ -479,7 +480,7 @@ button {
   color: var(--text-color);
   position: sticky;
   bottom: 0px;
-  background: var(--bg-color2);
+  background-color: var(--bg-color2);
   width: 180px;
   left: calc(50% - 90px);
   border-top-left-radius: 25px;
@@ -488,23 +489,7 @@ button {
   padding: 10px 0 5px 0;
   backdrop-filter: blur(20px);
   font-weight: bold;
-  cursor: pointer;
   transition: all 0.3s ease;
-}
-
-.footer:hover {
-  background: #d30f0f;
-  color: white;
-}
-
-.footer.bottom-only {
-  position: relative;
-  left: calc(50% - 90px);
-}
-
-.footer.bottom-only:hover {
-  background: #21a130;
-  color: white;
 }
 
 .footer-content {
@@ -515,11 +500,11 @@ button {
 .footer-link {
   color: inherit;
   text-decoration: none;
-  transition: opacity 0.2s;
+  color: #0074e8;
 }
 
 .footer-link:hover {
-  opacity: 0.8;
+  color: #2493ff;
 }
 
 .heart {
@@ -536,4 +521,22 @@ button {
   50% {
     transform: scale(0.9);
   }
+}
+
+#feedback-link {
+  position: absolute;
+  right: 10px;
+  top: 90px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#feedback-link:hover a {
+  color: #2493ff;
+}
+
+#feedback-link a {
+  color: #0074e8;
+  text-decoration: none;
 }
